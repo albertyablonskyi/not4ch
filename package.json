@@ -1,0 +1,14 @@
+{
+  "name": "not4ch",
+  "version": "1.0.0",
+  "description": "not4ch is not 4ch",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Albert Yablonskyi & Kanstantsin Trukhanau",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
