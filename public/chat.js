@@ -42,6 +42,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 `
             ).join('');
 
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+
+
         });
 
 
