@@ -8,6 +8,16 @@
     <script src="chat.js"></script>
 </head>
 
+<div id="username-modal" class="modal">
+    <div class="modal-content">
+        <h2>Welcome! What's your username?</h2>
+        <form id="username-form">
+            <input type="text" id="initial-username" name="initial-username" required placeholder="Enter your username">
+            <button type="submit">Join Chat</button>
+        </form>
+    </div>
+</div>
+
 <body>
     <div class="container">
         <header class="chat-header">
@@ -15,7 +25,13 @@
         </header>
 
         <div class="chat-area">
-            <h1>Hello World!</h1>
+            <div id="chat-history" class="chat-history">
+            </div>
+
+            <form id="chat-form" class="chat-form">
+                <input type="text" id="message" name="message" required placeholder="Type a message...">
+                <button type="submit">Send</button>
+            </form>
         </div>
     </div>
 
