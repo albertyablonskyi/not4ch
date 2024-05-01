@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const usernameForm = document.getElementById('username-form');
     const modalUsernameInput = document.getElementById('initial-username');
 
+    const changeUsernameButton = document.getElementById('open-change-modal');
+    const closeChangeModalButton = document.getElementById('close-change-modal');
+    const changeUsernameModal = document.getElementById('change-username-modal');
+    const changeUsernameForm = document.getElementById('change-username-form');
+    const newUsernameInput = document.getElementById('new-username');
+
     // Check if a username is already set in localStorage
     let username = localStorage.getItem('username');
 
@@ -47,8 +53,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
         });
 
-
-
     // Send a new message when the form is submitted
     chatForm.addEventListener('submit', (e) => {
         e.preventDefault();
@@ -69,6 +73,30 @@ document.addEventListener('DOMContentLoaded', () => {
         .finally(() => {
             window.location.reload();
         });
+    });
+
+    // Handle the "Change Username" modal
+    changeUsernameButton.addEventListener('click', () => {
+        changeUsernameModal.classList.add('open');
+        newUsernameInput.focus();
+    });
+
+    closeChangeModalButton.addEventListener('click', () => {
+        changeUsernameModal.classList.remove('open');
+    });
+
+    // Handle changing the username
+    changeUsernameForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const newUsername = newUsernameInput.value.trim();
+
+        if (newUsername && newUsername.length >= 3) {
+            localStorage.setItem('username', newUsername);
+            username = newUsername;
+            changeUsernameModal.classList.remove('open');
+        } else {
+            alert('Username must be at least 3 characters long.');
+        }
     });
 
 });

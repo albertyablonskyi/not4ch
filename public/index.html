@@ -18,10 +18,22 @@
     </div>
 </div>
 
+<div id="change-username-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" id="close-change-modal">&times;</span>
+        <h2>Change Your Username</h2>
+        <form id="change-username-form">
+            <input type="text" id="new-username" name="new-username" required placeholder="New username">
+            <button type="submit">Change</button>
+        </form>
+    </div>
+</div>
+
 <body>
     <div class="container">
         <header class="chat-header">
             <h1>The Ultimate Chat Experience (not4ch)</h1>
+            <button id="open-change-modal" class="change-username">Change Username</button>
         </header>
 
         <div class="chat-area">
