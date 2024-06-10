@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>not4ch</title>
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/pride_month.css' %}">
+</head>
+
+<body>
+    <div class="container">
+        <header class="chat-header">
+            <div class="title-box">
+                <h1>The Ultimate Chat Experience (not4ch)</h1>
+            </div>
+        </header>        
+
+        <div class="chat-area">
+            <div id="chat-history" class="chat-history">
+                {% for message in messages %}
+                    <div class="message-bubble">
+                        <div class="username">{{ message.username }}</div>
+                        <div class="message">{{ message.content }}</div>
+                    </div>
+                {% endfor %}
+            </div>
+
+            <form id="chat-form" class="chat-form">
+                <input type="text" id="chat-message-input" autocomplete="off" placeholder="Type a message..."/>
+                <button id="chat-message-submit">Send</button>
+            </form>
+
+        </div>
+    </div>
+
+    <footer class="chat-footer">
+        <p>&copy; 2024 not4ch. All rights reserved.</p>
+        <p>
+            <a href="https://github.com/albertyablonskyi/not4ch">Github</a> |
+            <a href="https://youtu.be/dQw4w9WgXcQ?si=DPml84ace5JV5oiT">Dont click me!</a> |
+            <a href="https://cat-bounce.com/">Click me!</a>
+        </p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            const chatSocket = new WebSocket(
+                'ws://' + window.location.host + '/ws/chat/'
+            );
+    
+            chatSocket.onmessage = function(e) {
+                const data = JSON.parse(e.data);
+                const chatHistory = document.getElementById('chat-history');
+                const messageBubble = document.createElement('div');
+                messageBubble.className = 'message-bubble';
+    
+                const usernameDiv = document.createElement('div');
+                usernameDiv.className = 'username';
+                usernameDiv.textContent = data.username;  // Include the username dynamically
+    
+                const messageDiv = document.createElement('div');
+                messageDiv.className = 'message';
+                messageDiv.textContent = data.message;
+    
+                messageBubble.appendChild(usernameDiv);
+                messageBubble.appendChild(messageDiv);
+                chatHistory.appendChild(messageBubble);
+    
+                // Scroll to the bottom of the chat history
+                chatHistory.scrollTop = chatHistory.scrollHeight;
+            };
+    
+            chatSocket.onclose = function(e) {
+                console.error('Chat socket closed unexpectedly');
+            };
+    
+            document.getElementById('chat-message-input').focus();
+            document.getElementById('chat-form').addEventListener('submit', function(e) {
+                e.preventDefault(); // Prevent the default form submission
+    
+                const messageInputDom = document.getElementById('chat-message-input');
+                const message = messageInputDom.value;
+                chatSocket.send(JSON.stringify({
+                    'message': message
+                }));
+                messageInputDom.value = '';
+            });
+        });
+    </script>
+    
+</body>
+</html>
