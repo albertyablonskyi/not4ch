@@ -1,0 +1,12 @@
+/* pride_month.css */
+
+/* Pride Month! */
+.title-box {
+    background:
+        linear-gradient(red 16.66%, orange 0 33.33%, yellow 0 50%, green 0 66.66%, blue 0 83.33%, indigo 0);
+    border-radius: 15px;
+    padding: 20px;
+    text-align: center;
+    color: #f5f5f5;
+    margin: 0 auto;
+}

@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+  db:
+    container_name: not4ch_postgres
+    image: postgres
+    environment:
+      POSTGRES_DB: not4ch_db
+      POSTGRES_USER: not4ch
+      POSTGRES_PASSWORD: not4ch
+    ports:
+      - "5432:5432"
+    # To use Persistent DB please uncomment following:
+    # volumes:
+    #   - postgres_data:/var/lib/postgresql/data
+    networks:
+      - django_network
+
+  web:
+    container_name: not4ch
+    restart: unless-stopped
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - django_network
+    environment:
+      - DATABASE_HOST=db
+      - DATABASE_PORT=5432
+      - DATABASE_NAME=not4ch_db
+      - DATABASE_USER=not4ch
+      - DATABASE_PASSWORD=not4ch
+      
+      - DJANGO_SUPERUSER_USERNAME=admin
+      - DJANGO_SUPERUSER_EMAIL=admin@admin.com
+      - DJANGO_SUPERUSER_PASSWORD=admin
+
+    volumes:
+      - .:/app
+
+volumes:
+  postgres_data:
+    name: not4ch_postgres
+
+networks:
+  django_network:
+    driver: bridge
