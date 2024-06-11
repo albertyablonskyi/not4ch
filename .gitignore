@@ -131,3 +131,6 @@ dist
 
 # chat-history.json
 chat-history.json
+
+# statics
+statics/

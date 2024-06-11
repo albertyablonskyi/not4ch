@@ -13,7 +13,7 @@ python manage.py collectstatic --noinput
 
 # Apply migrations
 python manage.py makemigrations
-python /app/manage.py migrate
+python manage.py migrate
 
 # Create superuser
 if [ "$DJANGO_SUPERUSER_USERNAME" ] && [ "$DJANGO_SUPERUSER_PASSWORD" ] && [ "$DJANGO_SUPERUSER_EMAIL" ]; then
